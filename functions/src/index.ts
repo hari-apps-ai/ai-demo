@@ -14,3 +14,7 @@ setGlobalOptions({
 export const helloWorld = onCall(() => {
     return { message: "Hello from Firebase!" };
 })
+
+export const anotherFunction = onCall(() => {
+    return { message: "This is another function!" };
+});

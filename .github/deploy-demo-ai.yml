@@ -42,7 +42,7 @@ jobs:
               },
               production: true,
               region: 'me-west1',
-              title: 'ai-demo',
+              title: 'production ci',
             }
 
       - name: Build frontend (CI Config)
