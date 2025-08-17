@@ -10,6 +10,10 @@
     "srv:compile": "npm run build --prefix functions",
     "fb:use": "firebase use",
     "fb:deploy": "firebase deploy",
+    "srv:run": "firebase emulators:start --inspect-functions --export-on-exit em-data --import em-data",
+    "srv:kill-ports": "npx kill-port 8080 5001 9099 9199 5000 4000 4500 9150",
+    "srv:emulators": "npm run srv:kill-ports && npm run srv:run",
+    "srv": "npm run srv:compile && npm run srv:run",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
