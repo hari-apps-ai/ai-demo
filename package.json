@@ -7,7 +7,7 @@
     "build": "ng build --configuration development",
     "build:ci": "ng build --configuration ci",
     "build:ci-dev": "ng build --configuration ci-dev",
-    "srv:compile": "npm run build --prefix functions",
+    "srv:compile": "npm --prefix functions run build",
     "fb:use": "firebase use",
     "fb:deploy": "firebase deploy",
     "srv:run": "firebase emulators:start --inspect-functions --export-on-exit em-data --import em-data",
