@@ -1,0 +1,65 @@
+name: Deploy to motivator-production
+
+on:
+  push:
+    branches: [deploy-demo-ai]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set Node.js version
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Install backend deps
+        run: npm ci
+        working-directory: functions
+
+      - name: Inject environment.ci.ts
+        run: |
+          echo "export const environment = $NG_ENVIRONMENT" > src/environments/environment.ci.ts
+        env: 
+          NG_ENVIRONMENT: |
+            {
+              api: {
+                firebaseConfig: {
+                  apiKey: "AIzaSyDNqeQZT4yGiVI1Ge2hZwW2LZKdJLJdhj4",
+                  authDomain: "premium-ketzev-isr.firebaseapp.com",
+                  projectId: "premium-ketzev-isr",
+                  storageBucket: "premium-ketzev-isr.firebasestorage.app",
+                  messagingSenderId: "857353148655",
+                  appId: "1:857353148655:web:4154640cb28f81ad40231a"
+                },
+              },
+              production: true,
+              region: 'me-west1',
+              title: 'motivator-production',
+            }
+
+      - name: Build frontend (CI Config)
+        run: npm run build:ci
+            
+      - name: Set Firebase project
+        run: npm run fb:use -- premium-ketzev-isr --token "${{ secrets.FIREBASE_TOKEN }}"
+
+      - name: Compile backend
+        run: npm run srv:compile:isr
+
+      - name: Deploy to Firebase
+        run: npm run fb:deploy -- --token "${{ secrets.FIREBASE_TOKEN }}" --force
+
+      - name: Seed ci database
+        run: npm run ci:seed
+        env: 
+          KEY_MOTIVATOR: ${{ secrets.KEY_MOTIVATOR_PRODUCTION }}
+
+
