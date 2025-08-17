@@ -11,10 +11,6 @@ setGlobalOptions({
     region: 'me-west1'
 });
 
-export const helloWorld = onCall(() => {
-    return { message: "Hello from Firebase!" };
+export const getFilesFromGoogleDrive = onCall<void, Promise<{message: string}>>(async () => {
+    return { message: "Files from Google Drive is starting" };
 })
-
-export const anotherFunction = onCall(() => {
-    return { message: "This is another function!" };
-});
