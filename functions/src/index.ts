@@ -18,6 +18,7 @@ const isEmulator = process.env.FUNCTIONS_EMULATOR === 'true';
 const envName = isEmulator ? 'local' : 'production';
 
 export const getFilesFromGoogleDrive = onCall<void, Promise<string[]>>(  
+  {secrets: ['GOOGLE_DRIVE_CREDENTIALS']},
   async () => {
     const credentialsTxt = defineSecret('GOOGLE_DRIVE_CREDENTIALS');
     console.log(`Running with credentials text:`, credentialsTxt.value());
