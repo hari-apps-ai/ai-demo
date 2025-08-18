@@ -17,11 +17,15 @@ setGlobalOptions({
 const isEmulator = process.env.FUNCTIONS_EMULATOR === 'true';
 const envName = isEmulator ? 'local' : 'production';
 
-export const getFilesFromGoogleDrive = onCall<void, Promise<string[]>>(
+export const getFilesFromGoogleDrive = onCall<void, Promise<string[]>>(  
   async () => {
-    const auth = new google.auth.GoogleAuth({
+    const options = googleDriveCredentials ? {
       credentials: googleDriveCredentials,
+    } : {};
+
+    const auth = new google.auth.GoogleAuth({
       scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+      ...options
     });
 
     const drive = google.drive({
