@@ -27,12 +27,6 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Authenticate with Firebase
-        run: firebase login:ci --no-localhost
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-
-
       - name: Inject environment.ci.ts
         run: |
           echo "export const environment = $NG_ENVIRONMENT" > src/environments/environment.ci.ts
@@ -59,10 +53,14 @@ jobs:
             
       - name: Set Firebase project
         run: npm run fb:use ai-demo-f9abe
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Compile backend
         run: npm run srv:compile
 
       - name: Deploy to Firebase
         run: npm run fb:deploy --force
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
