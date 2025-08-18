@@ -1,8 +1,7 @@
 {
   "name": "functions",
   "scripts": {
-    "build": "tsc && tsc-alias",
-    "build:emulators": "tsc --project tsconfig.emulators.json && tsc-alias --project tsconfig.emulators.json",
+    "build": "tsc",
     "build:watch": "tsc --watch",
     "serve": "npm run build && firebase emulators:start --only functions",
     "shell": "npm run build && firebase functions:shell",
@@ -21,8 +20,7 @@
   },
   "devDependencies": {
     "firebase-functions-test": "^3.1.0",
-    "typescript": "^5.7.3",    
-    "tsc-alias": "^1.8.10"
+    "typescript": "^5.7.3"   
   },
   "private": true
 }

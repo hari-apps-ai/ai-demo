@@ -33,6 +33,10 @@ jobs:
       - name: Authenticate FIREBASE_TOKEN
         run: echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/firebase-token.json" >> $GITHUB_ENV
 
+      - name: Set service account secret in Firebase
+        run: echo '${{ secrets.GOOGLE_DRIVE_SERVICE_ACCOUNT_KEY }}' | \
+             firebase functions:secrets:set GOOGLE_DRIVE_CREDENTIALS --data-file=- --project ai-demo-f9abe
+
       - name: Inject environment.ci.ts
         run: |
           echo "export const environment = $NG_ENVIRONMENT" > src/environments/environment.ci.ts

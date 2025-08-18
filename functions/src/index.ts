@@ -2,10 +2,10 @@
  * Import function triggers from their respective submodules:
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
+import { defineSecret } from 'firebase-functions/params';
 import { setGlobalOptions } from 'firebase-functions/v2';
 import { onCall } from 'firebase-functions/v2/https';
 import { google } from 'googleapis';
-import { googleDriveCredentials } from '@google-drive-credentials';
 // // this is not stored in github for security reasons,
 // // It was created in the Google Cloud Console and downloaded as a JSON file
 
@@ -19,13 +19,17 @@ const envName = isEmulator ? 'local' : 'production';
 
 export const getFilesFromGoogleDrive = onCall<void, Promise<string[]>>(  
   async () => {
-    const options = googleDriveCredentials ? {
-      credentials: googleDriveCredentials,
-    } : {};
+    const credentialsTxt = defineSecret('GOOGLE_DRIVE_CREDENTIALS');
+    console.log(`Running with credentials text:`, credentialsTxt.value());
+
+    const credentials = JSON.parse(credentialsTxt.value());
+    console.log(`Using credentials for Google Drive API.`, credentials);
+
+
 
     const auth = new google.auth.GoogleAuth({
       scopes: ['https://www.googleapis.com/auth/drive.readonly'],
-      ...options
+      credentials
     });
 
     const drive = google.drive({
