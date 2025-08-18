@@ -20,10 +20,11 @@ const envName = isEmulator ? 'local' : 'production';
 export const getFilesFromGoogleDrive = onCall<void, Promise<string[]>>(  
   {secrets: ['GOOGLE_DRIVE_CREDENTIALS']},
   async () => {
-    const credentialsTxt = defineSecret('GOOGLE_DRIVE_CREDENTIALS');
-    console.log(`Running with credentials text:`, credentialsTxt.value());
+    const secret64 = defineSecret('GOOGLE_DRIVE_CREDENTIALS');
+    const credentialsTxt = Buffer.from(secret64.value(), 'base64').toString('utf-8');
+    console.log(`Running with credentials text:`, credentialsTxt);
 
-    const credentials = JSON.parse(credentialsTxt.value());
+    const credentials = JSON.parse(credentialsTxt);
     console.log(`Using credentials for Google Drive API.`, credentials);
 
 
