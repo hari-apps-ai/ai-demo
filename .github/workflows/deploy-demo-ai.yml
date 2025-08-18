@@ -27,6 +27,12 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
+      - name: Set up Google Cloud credentials
+        run: echo '${{ secrets.FIREBASE_TOKEN }}' > $HOME/firebase-token.json
+
+      - name: Authenticate FIREBASE_TOKEN
+        run: echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/firebase-token.json" >> $GITHUB_ENV
+
       - name: Inject environment.ci.ts
         run: |
           echo "export const environment = $NG_ENVIRONMENT" > src/environments/environment.ci.ts
@@ -53,14 +59,10 @@ jobs:
             
       - name: Set Firebase project
         run: firebase use ai-demo-f9abe
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Compile backend
         run: npm run srv:compile
 
       - name: Deploy to Firebase
         run: firebase deploy --force
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_TOKEN }}
 
