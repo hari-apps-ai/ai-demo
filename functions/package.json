@@ -1,7 +1,8 @@
 {
   "name": "functions",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && tsc-alias",
+    "build:emulators": "tsc --project tsconfig.emulators.json && tsc-alias --project tsconfig.emulators.json",
     "build:watch": "tsc --watch",
     "serve": "npm run build && firebase emulators:start --only functions",
     "shell": "npm run build && firebase functions:shell",
@@ -15,11 +16,13 @@
   "main": "lib/index.js",
   "dependencies": {
     "firebase-admin": "^12.6.0",
-    "firebase-functions": "^6.0.1"
+    "firebase-functions": "^6.0.1",
+    "googleapis": "^156.0.0"
   },
   "devDependencies": {
-    "typescript": "^5.7.3",
-    "firebase-functions-test": "^3.1.0"
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^5.7.3",    
+    "tsc-alias": "^1.8.10"
   },
   "private": true
 }

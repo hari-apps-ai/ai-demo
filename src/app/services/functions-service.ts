@@ -8,14 +8,14 @@ import { catchError, Observable, of } from 'rxjs';
 export class FunctionsService {
   readonly functions = inject(Functions);
 
-  private _getFilesFromGoogleDrive = httpsCallableData<void, { message: string }>(this.functions, 'getFilesFromGoogleDrive');
+  private _getFilesFromGoogleDrive = httpsCallableData<void,string[]>(this.functions, 'getFilesFromGoogleDrive');
 
 
-  getFilesFromGoogleDrive(): Observable<{ message: string }> {
+  getFilesFromGoogleDrive(): Observable<string[]> {
     return this._getFilesFromGoogleDrive().pipe(
       catchError(err => {
         console.error('Error calling getFilesFromGoogleDrive function', err);
-        return of({ message: 'Error fetching files from Google Drive' });
+        return of(['Error fetching files from Google Drive']);
       })
     );
   }

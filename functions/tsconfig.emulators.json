@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@google-drive-credentials": [
+        "./src/secrets/google-drive-credentials.emulators"
+      ]
+    }
+  }
+}

@@ -2,15 +2,47 @@
  * Import function triggers from their respective submodules:
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
+import { setGlobalOptions } from 'firebase-functions/v2';
+import { onCall } from 'firebase-functions/v2/https';
+import { google } from 'googleapis';
+import { googleDriveCredentials } from '@google-drive-credentials';
+// // this is not stored in github for security reasons,
+// // It was created in the Google Cloud Console and downloaded as a JSON file
 
-import {setGlobalOptions} from "firebase-functions/v2";
-import { onCall } from "firebase-functions/v2/https";
-
-setGlobalOptions({ 
-    maxInstances: 10, 
-    region: 'me-west1'
+setGlobalOptions({
+  maxInstances: 10,
+  region: 'me-west1',
 });
 
-export const getFilesFromGoogleDrive = onCall<void, Promise<{message: string}>>(async () => {
-    return { message: "Files from Google Drive is starting" };
-})
+const isEmulator = process.env.FUNCTIONS_EMULATOR === 'true';
+const envName = isEmulator ? 'local' : 'production';
+
+export const getFilesFromGoogleDrive = onCall<void, Promise<string[]>>(
+  async () => {
+    const auth = new google.auth.GoogleAuth({
+      credentials: googleDriveCredentials,
+      scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+    });
+
+    const drive = google.drive({
+      version: 'v3',
+      auth: auth,
+    });
+    const folderName = '1hKf4_-Xh8n4Pu78MlN_dmLnYC4NHCdXd';
+    const res = await drive.files.list({
+      q: `'${folderName}' in parents`,
+      fields: 'files(id, name, mimeType)',
+    });
+
+    const files = res.data.files;
+    const names = files
+      ? files.map((file) => file.name || 'NO NAME')
+      : ['No files found'];
+
+    return [
+      `Environment: ${envName}`,
+      `Files in folder "${folderName}":`,
+      ...names,
+    ];
+  }
+);
