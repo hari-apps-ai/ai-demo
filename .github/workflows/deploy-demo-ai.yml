@@ -54,7 +54,7 @@ jobs:
       - name: Set Firebase project
         run: firebase use ai-demo-f9abe
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Compile backend
         run: npm run srv:compile
@@ -62,5 +62,5 @@ jobs:
       - name: Deploy to Firebase
         run: firebase deploy --force
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_TOKEN }}
 
