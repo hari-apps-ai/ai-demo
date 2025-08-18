@@ -52,7 +52,7 @@ jobs:
         run: npm run build:ci
             
       - name: Set Firebase project
-        run: npm run fb:use ai-demo-f9abe
+        run: firebase use ai-demo-f9abe
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
@@ -60,7 +60,7 @@ jobs:
         run: npm run srv:compile
 
       - name: Deploy to Firebase
-        run: npm run fb:deploy --force
+        run: firebase deploy --force
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
