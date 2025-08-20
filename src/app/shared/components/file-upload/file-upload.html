@@ -1,7 +1,15 @@
 @let vm = status();
 @switch (vm.status) {
     @case ('idle') {
-        <div class="drop">
+        <input type="file" hidden #filesControl
+            [accept]="accept()"
+            (change)="onSelect()" />
+            
+        <div class="drop" (click)="filesControl.click()" 
+            [class.can-drop]="canDrop()"
+            (dragover)="onDragOver($event)" 
+            (dragleave)="canDrop.set(false)"
+            (drop)="onDrop($event)">
             Drop files here or click to upload
         </div>
     }

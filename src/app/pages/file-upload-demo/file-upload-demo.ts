@@ -9,5 +9,10 @@ import { FileUploadStatus } from '../../shared/components/file-upload/file-uploa
   styleUrl: './file-upload-demo.scss'
 })
 export default class FileUploadDemo {
-  readonly status = signal<FileUploadStatus>({status: 'idle', accept: '*.pdf'});
+  readonly status = signal<FileUploadStatus>({status: 'idle', accept: '.pdf'});
+
+  onFileSelected(file: File) {
+    console.log('File selected:', file);
+    this.status.set({status: 'in-progress', progress: 0});
+  }
 }
