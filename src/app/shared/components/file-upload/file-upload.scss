@@ -1,0 +1,20 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .drop {
+        margin: 1rem;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px dashed var(--p-50);
+        border-radius: 0.5rem;
+        background-color: var(--p-10);
+        color: var(--p-70);
+        cursor: pointer;
+    }
+
+}

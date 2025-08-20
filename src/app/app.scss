@@ -23,4 +23,13 @@
         }
     }
 
+    .content {
+        flex-grow: 1;
+        display: grid;
+
+        router-outlet {
+            display: none;
+        }
+    };
+
 }

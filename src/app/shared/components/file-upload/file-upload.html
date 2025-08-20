@@ -1,6 +1,10 @@
 @let vm = status();
 @switch (vm.status) {
-    @case ('idle') {}
+    @case ('idle') {
+        <div class="drop">
+            Drop files here or click to upload
+        </div>
+    }
     @case ('in-progress') {
         <div class="file-upload-progress">
             <span>In Progress</span>
