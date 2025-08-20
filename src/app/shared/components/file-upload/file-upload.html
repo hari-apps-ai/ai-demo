@@ -1,0 +1,22 @@
+@let vm = status();
+@switch (vm.status) {
+    @case ('idle') {}
+    @case ('in-progress') {
+        <div class="file-upload-progress">
+            <span>In Progress</span>
+            <span>{{vm.progress}}</span>
+        </div>
+    }
+    @case ('success') {
+        <div class="file-upload-success">
+            <span>File uploaded successfully!</span>
+            <span>URL: {{vm.fileUrl}}</span>
+        </div>
+    }
+    @case ('error') {
+        <div class="file-upload-error">
+            <span>Error uploading file. Please try again.</span>
+            <span>Error: {{vm.errorMessage}}</span>
+        </div>
+    }
+}

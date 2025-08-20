@@ -1,0 +1,26 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        background: var(--p-20);
+        border-bottom: 2px solid var(--p-50);
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+
+        a {
+            text-decoration: none;
+            color: var(--p-70);
+            padding: 0.5rem; 
+            background-color: var(--p-20);
+
+            &.selected {
+                color: var(--p-10);
+                background-color: var(--p-40);
+            }
+        }
+    }
+
+}

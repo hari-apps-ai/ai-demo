@@ -22,11 +22,7 @@ export const getFilesFromGoogleDrive = onCall<void, Promise<string[]>>(
   async () => {
     const secret64 = defineSecret('GOOGLE_DRIVE_CREDENTIALS');
     const credentialsTxt = Buffer.from(secret64.value(), 'base64').toString('utf-8');
-    console.log(`Running with credentials text:`, credentialsTxt);
-
     const credentials = JSON.parse(credentialsTxt);
-    console.log(`Using credentials for Google Drive API.`, credentials);
-
 
 
     const auth = new google.auth.GoogleAuth({

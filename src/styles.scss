@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --primary: #6200ee;
+    --foreground: light-dark(black, white);
+    --background: light-dark(white, black);
+
+    --p-0: color-mix(in srgb, var(--primary), var(--background) 100%);
+    --p-10: color-mix(in srgb, var(--primary), var(--background) 80%);
+    --p-20: color-mix(in srgb, var(--primary), var(--background) 60%);
+    --p-30: color-mix(in srgb, var(--primary), var(--background) 40%);
+    --p-40: color-mix(in srgb, var(--primary), var(--background) 20%);
+    --p-50: var(--primary);
+    --p-60: color-mix(in srgb, var(--primary), var(--foreground) 20%);
+    --p-70: color-mix(in srgb, var(--primary), var(--foreground) 40%);
+    --p-80: color-mix(in srgb, var(--primary), var(--foreground) 60%);
+    --p-90: color-mix(in srgb, var(--primary), var(--foreground) 80%);
+    --p-100: color-mix(in srgb, var(--primary), var(--foreground) 100%);
+
+    --n-0: color-mix(in srgb, var(--foreground), var(--background) 100%);
+    --n-10: color-mix(in srgb, var(--foreground), var(--background) 90%);
+    --n-20: color-mix(in srgb, var(--foreground), var(--background) 80%);
+    --n-30: color-mix(in srgb, var(--foreground), var(--background) 70%);
+    --n-40: color-mix(in srgb, var(--foreground), var(--background) 60%);
+    --n-50: color-mix(in srgb, var(--foreground), var(--background) 50%);
+    --n-60: color-mix(in srgb, var(--foreground), var(--background) 40%);
+    --n-70: color-mix(in srgb, var(--foreground), var(--background) 30%);
+    --n-80: color-mix(in srgb, var(--foreground), var(--background) 20%);
+    --n-90: color-mix(in srgb, var(--foreground), var(--background) 10%);
+    --n-100: color-mix(in srgb, var(--foreground), var(--background) 0%);
+
+}
+
+html, body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, sans-serif;
+    color: var(--foreground);
+    background-color: var(--n-10);
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}

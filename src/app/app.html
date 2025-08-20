@@ -1,2 +1,7 @@
-<h1>Welcome to AI Demo</h1>
-<pre>{{msg.value() | json}}</pre>
+<nav>
+    <a routerLink="file-upload" routerLinkActive="selected">File Upload</a>    
+    <a routerLink="google-drive" routerLinkActive="selected">Google Drive</a>
+</nav>
+<div class="content">
+    <router-outlet/>
+</div>
